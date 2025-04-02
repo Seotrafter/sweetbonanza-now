@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YabanHayat - Wildlife Incremental Mobil Oyunu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel='icon' href='/src/icons/logo.png' type='image/x-icon'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c42034',
+                        secondary: '#3a1d18',
+                        white: '#ffffff'
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: "Kanit", sans-serif;
+        }
+
+        body {
+
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-12 h-12 overflow-hidden animate-float">
+                    <img src="/src/icons/logo.png" alt="YabanHayat Logo" class="object-cover w-full h-full">
+                </div>
+                <h1 class="text-primary text-2xl font-bold">YabanHayat</h1>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-secondary p-2">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="/#anasayfa" class="text-secondary hover:text-primary font-medium transition-all">Ana Sayfa</a>
+                <a href="/#oynanıs" class="text-secondary hover:text-primary font-medium transition-all">Oynanış</a>
+                <a href="/#ozellikler" class="text-secondary hover:text-primary font-medium transition-all">Özellikler</a>
+                <a href="/#galerisi" class="text-secondary hover:text-primary font-medium transition-all">Galeri</a>
+                <a href="/#yorumlar" class="text-secondary hover:text-primary font-medium transition-all">Yorumlar</a>
+                <a href="/#indir" class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-all">Hemen İndir</a>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white w-full py-4 shadow-md">
+            <div class="container mx-auto px-4 flex flex-col gap-4">
+                <a href="/#anasayfa" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Ana Sayfa</a>
+                <a href="/#oynanıs" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Oynanış</a>
+                <a href="/#ozellikler" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Özellikler</a>
+                <a href="/#galerisi" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Galeri</a>
+                <a href="/#yorumlar" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Yorumlar</a>
+                <a href="/#indir" class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-all w-fit mt-2">Hemen İndir</a>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section -->
+    <section class="py-16 bg-white mt-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-secondary mb-4">Çerez <span class="text-primary">Politikası</span></h1>
+                <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+                    Çerezleri nasıl kullandığımızı öğrenerek gezinme deneyiminizi nasıl geliştirdiğimizi keşfedin.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is Cookie Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Çerez Nedir?</h2>
+                <p class="text-gray-700 mb-4">
+                    Çerezler, bir web sitesini ziyaret ettiğinizde cihazınıza kaydedilen küçük metin dosyalarıdır. Web sitesinin düzgün çalışmasını sağlamakla birlikte, tercihleriniz ve etkileşimlerinizi hatırlayarak kullanıcı deneyiminizi iyileştirmeye yardımcı olurlar.
+                </p>
+                <p class="text-gray-700">
+                    Çerezler, web deneyiminizi daha sorunsuz ve kişiselleştirilmiş hale getirmek için web tarayıcınız tarafından depolanan küçük veri parçalarıdır.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Use Cookies Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Çerezleri Nasıl Kullanıyoruz?</h2>
+                <p class="text-gray-700 mb-6">
+                    YabanHayat olarak çerezleri aşağıdaki amaçlarla kullanıyoruz:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                    <!-- Functionality -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+                        <h3 class="text-xl font-bold text-secondary mb-3">İşlevsellik</h3>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li class="mb-2">Web sitesinin temel işlevlerini sağlamak.</li>
+                            <li class="mb-2">Kullanıcı oturumlarını yönetmek.</li>
+                            <li>Tercihlerinizi hatırlayarak daha iyi bir deneyim sunmak.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Analysis -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+                        <h3 class="text-xl font-bold text-secondary mb-3">Analiz</h3>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li class="mb-2">Site trafiğini ve kullanıcı davranışlarını analiz etmek.</li>
+                            <li>Hizmetlerimizi geliştirmek için anonim veriler toplamak.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Personalization -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+                        <h3 class="text-xl font-bold text-secondary mb-3">Kişiselleştirme</h3>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li class="mb-2">Kullanıcı deneyiminizi ilgi alanlarınıza göre özelleştirmek.</li>
+                            <li>Size özel içerikler ve öneriler sunmak.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Types of Cookies Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Kullandığımız Çerez Türleri</h2>
+
+                <div class="space-y-6">
+                    <!-- Required Cookies -->
+                    <div class="flex items-start p-4 border-l-4 border-primary bg-gray-50 rounded-r-lg">
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-bold text-secondary">Zorunlu Çerezler</h3>
+                            <p class="text-gray-700">Bu çerezler, web sitesinin temel işlevleri için gereklidir ve sitenin düzgün çalışmasını sağlar.</p>
+                        </div>
+                        <div class="ml-4">
+                            <span class="bg-primary text-white text-xs px-3 py-1 rounded-full font-bold">Her Zaman Aktif</span>
+                        </div>
+                    </div>
+
+                    <!-- Performance Cookies -->
+                    <div class="flex items-start p-4 border-l-4 border-gray-300 bg-gray-50 rounded-r-lg">
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-bold text-secondary">Performans Çerezleri</h3>
+                            <p class="text-gray-700">Ziyaretçilerin web sitemizle nasıl etkileşimde bulunduğunu anlamamıza yardımcı olmak için anonim veriler toplar.</p>
+                        </div>
+                        <div class="ml-4">
+                            <span class="bg-gray-300 text-gray-700 text-xs px-3 py-1 rounded-full font-bold">İsteğe Bağlı</span>
+                        </div>
+                    </div>
+
+                    <!-- Functionality Cookies -->
+                    <div class="flex items-start p-4 border-l-4 border-gray-300 bg-gray-50 rounded-r-lg">
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-bold text-secondary">İşlevsellik Çerezleri</h3>
+                            <p class="text-gray-700">Tercihlerinizi hatırlayarak size daha kişiselleştirilmiş bir deneyim sunar.</p>
+                        </div>
+                        <div class="ml-4">
+                            <span class="bg-gray-300 text-gray-700 text-xs px-3 py-1 rounded-full font-bold">İsteğe Bağlı</span>
+                        </div>
+                    </div>
+
+                    <!-- Advertising Cookies -->
+                    <div class="flex items-start p-4 border-l-4 border-gray-300 bg-gray-50 rounded-r-lg">
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-bold text-secondary">Reklam Çerezleri</h3>
+                            <p class="text-gray-700">İlgi alanlarınıza uygun reklamlar göstermek için kullanılır.</p>
+                        </div>
+                        <div class="ml-4">
+                            <span class="bg-gray-300 text-gray-700 text-xs px-3 py-1 rounded-full font-bold">İsteğe Bağlı</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-gray-700 mt-6">
+                    Ayrıca, üçüncü taraf hizmet sağlayıcılarına (örneğin analiz şirketleri ve reklam verenler) çerezleri yerleştirme izni verebiliriz. Bu çerezler, hizmetlerimizi iyileştirmek ve size özel reklamlar sunmak için kullanılır.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- Managing Cookies Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Çerezleri Yönetme</h2>
+                <p class="text-gray-700 mb-4">
+                    Çerezleri kontrol etme veya devre dışı bırakma hakkına sahipsiniz. Ancak çerezleri devre dışı bırakmak, web sitesinin bazı işlevlerini etkileyebilir.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    Çerezleri yönetmek için tarayıcınızın ayarlarını kullanabilirsiniz:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="font-bold text-secondary">Google Chrome</p>
+                        <p class="text-gray-700 text-sm">Menü → Ayarlar → Gizlilik ve güvenlik → Çerezler ve diğer site verileri</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="font-bold text-secondary">Mozilla Firefox</p>
+                        <p class="text-gray-700 text-sm">Menü → Seçenekler → Gizlilik ve güvenlik → Çerezler ve site verileri</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="font-bold text-secondary">Safari</p>
+                        <p class="text-gray-700 text-sm">Tercihler → Gizlilik → Çerezler ve web sitesi verileri</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="font-bold text-secondary">Microsoft Edge</p>
+                        <p class="text-gray-700 text-sm">Ayarlar → Çerezler ve site izinleri → Çerezleri yönet ve sil</p>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-yellow-800">
+                    <p class="font-bold">Unutmayın:</p>
+                    <p>Çerezleri devre dışı bıraksanız bile, temel işlevselliği sağlamak için bazı zorunlu çerezler aktif kalmaya devam edebilir.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Updates Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Güncellemeler</h2>
+                <p class="text-gray-700 mb-4">
+                    Bu Çerez Politikası zaman zaman güncellenebilir. Değişikliklerden haberdar olmak için bu sayfayı periyodik olarak kontrol etmenizi öneririz.
+                </p>
+                <p class="text-secondary font-bold">
+                    Son Güncelleme Tarihi: 1 Mart 2025
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-secondary mb-6">Çerezlerin Faydaları</h2>
+                <p class="text-gray-700 mb-4">
+                    Çerezleri kullanarak size sunduğumuz bazı avantajlar şunlardır:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4 mx-auto">
+                            <i class="fas fa-sign-in-alt text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-2">Hızlı Giriş</h3>
+                        <p class="text-gray-600">Giriş bilgilerinizi hatırlayarak daha hızlı oturum açmanızı sağlar.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4 mx-auto">
+                            <i class="fas fa-user-cog text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-2">Kişiselleştirilmiş Deneyim</h3>
+                        <p class="text-gray-600">Tercihlerinizi hatırlayarak size özel bir deneyim sunar.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4 mx-auto">
+                            <i class="fas fa-tachometer-alt text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-2">İyileştirilmiş Performans</h3>
+                        <p class="text-gray-600">Web sitesinin daha hızlı ve verimli çalışmasına yardımcı olur.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4 mx-auto">
+                            <i class="fas fa-star text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-secondary mb-2">Daha İyi Hizmet</h3>
+                        <p class="text-gray-600">Kullanım verilerini analiz ederek hizmetlerimizi geliştirir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-primary text-white rounded-xl shadow-lg p-8">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="md:w-2/3 mb-6 md:mb-0">
+                        <h2 class="text-2xl font-bold mb-4">Sorularınız mı var?</h2>
+                        <p class="mb-4">
+                            Çerez politikamız hakkında daha fazla bilgi almak veya herhangi bir sorunuzu sormak için bizimle iletişime geçebilirsiniz.
+                        </p>
+                        <p class="font-bold">
+                            <span class="font-normal">Bize Yazın:</span> support@sweetbonanza-now.com
+                        </p>
+                    </div>
+                    <div class="md:w-1/3 text-center">
+                        <h3 class="text-xl font-bold mb-3">YabanHayat'i Keşfetmeye Devam Edin!</h3>
+                        <p class="mb-4">Sihirli dünyamızda destansı maceralara katılın, kahramanlarınızı keşfedin ve büyülü bir yolculuğa çıkın.</p>
+                        <a href="/" class="inline-block bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-opacity-90 transition-all">
+                            ANA SAYFAYA DÖN
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Section -->
+    <section class="py-8 bg-gray-50 mb-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600 max-w-3xl mx-auto">
+                <span class="font-bold text-secondary">Web Sitemiz: YabanHayat</span> Gizliliğinize saygı göstererek size en iyi deneyimi sunmak için çalışıyoruz. Çerez tercihlerinizi istediğiniz zaman güncelleyebilirsiniz.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <a href="/" class="flex items-center gap-3 mb-4 md:mb-0">
+                    <div class="w-10 h-10 overflow-hidden">
+                        <img src="/src/icons/logo.png" alt="YabanHayat Logo" class="object-cover w-full h-full">
+                    </div>
+                    <h2 class="text-xl font-bold">YabanHayat</h2>
+                </a>
+
+                <div class="flex gap-6">
+                    <a href="https://discord.gg/vNAB9eFs5W" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/capplaygames" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/CapPlayGames" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/capplaygames/" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UC8yIj0AL1SJcqqZzq27bBPA" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 pt-6 pb-4">
+                <div class="flex flex-wrap justify-center gap-8 mb-6">
+                    <a href="/gizlilik-politikasi" class="hover:text-primary transition-all">Gizlilik Politikası</a>
+                    <a href="/kullanim-kosullari" class="hover:text-primary transition-all">Kullanım Koşulları</a>
+                    <a href="/cerezler" class="hover:text-primary transition-all">Çerez Politikası</a>
+
+                </div>
+
+                <p class="text-center text-white/60 text-sm">
+                    &copy; 2025 YabanHayat. Tüm hakları saklıdır.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Hide mobile menu when clicking a link
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+<?php
+$cookieConsentHtml = '
+<style>
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 101;
+    background: #3a1d18; 
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-top: 3px solid #c42034;
+}
+
+.cookie-container {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.cookie-title {
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-right: 1.5rem;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.cookie-title i {
+    color: #c42034;
+    font-size: 1.25rem;
+}
+
+.cookie-text {
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.cookie-link {
+    color: #c42034;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cookie-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #c42034;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.cookie-link:hover::after {
+    transform: scaleX(1);
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.cookie-button-reject,
+.cookie-button-accept {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 25px;
+}
+
+.cookie-button-reject {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.cookie-button-reject:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.cookie-button-accept {
+    background: #c42034;
+    color: #ffffff;
+    border: 2px solid #c42034;
+}
+
+.cookie-button-accept:hover {
+    background: #ffffff;
+    color: #c42034;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+    .cookie-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .cookie-content {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .cookie-title {
+        margin-bottom: 0.5rem;
+    }
+
+    .cookie-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .cookie-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .cookie-button-reject,
+    .cookie-button-accept {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+<div id="cookieConsent" class="cookie-consent">
+    <div class="cookie-container">
+        <div class="cookie-content">
+            <h3 class="cookie-title">
+                <i class="fas fa-cookie-bite"></i>
+                Çerez Politikası
+            </h3>
+            <p class="cookie-text">
+                YabanHayat oyun deneyiminizi geliştirmek için çerezler kullanıyoruz. Web sitemizi kullanmaya devam ederek çerezlerin kullanımını kabul etmiş olursunuz. Daha fazla bilgi için
+                <a href="/Gizlilik826/" class="cookie-link">Gizlilik Politikamızı</a>,
+                <a href="/Kullanım346/" class="cookie-link">Hizmet Şartlarımızı</a>
+                ve
+                <a href="/cerez23/" class="cookie-link">Çerez Politikamızı</a>
+                okuyabilirsiniz.
+            </p>
+        </div>
+        
+        <div class="cookie-buttons">
+            <button id="rejectCookies" class="cookie-button-reject">
+                Reddet
+            </button>
+            <button id="acceptCookies" class="cookie-button-accept">
+                Kabul Et
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+   const cookieConsent = document.getElementById("cookieConsent");
+   const acceptBtn = document.getElementById("acceptCookies");
+   const rejectBtn = document.getElementById("rejectCookies");
+   
+   if (!getCookie("aprenderd_cookie_consent")) {
+       setTimeout(() => {
+           cookieConsent.style.transform = "translateX(0)";
+       }, 1000);
+   }
+
+   function getCookie(name) {
+       let matches = document.cookie.match(new RegExp(
+           "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"
+       ));
+       return matches ? decodeURIComponent(matches[1]) : undefined;
+   }
+   
+   function setCookie(name, value, days) {
+       const date = new Date();
+       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+       const expires = "; expires=" + date.toUTCString();
+       document.cookie = name + "=" + value + expires + "; path=/; SameSite=Strict; Secure";
+   }
+
+   function handleConsent(consent) {
+       setCookie("aprenderd_cookie_consent", consent, 365);
+       cookieConsent.style.transform = "translateX(120%)";
+       
+       setTimeout(() => {
+           cookieConsent.remove();
+       }, 500);
+   }
+
+   acceptBtn.addEventListener("click", () => handleConsent("accepted"));
+   rejectBtn.addEventListener("click", () => handleConsent("rejected"));
+});
+</script>
+';
+
+if (!isset($_COOKIE["aprenderd_cookie_consent"])) {
+    echo $cookieConsentHtml;
+}
+?>

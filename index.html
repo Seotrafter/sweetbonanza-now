@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YabanHayat - Wildlife Incremental Mobil Oyunu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel='icon' href='/src/icons/logo.png' type='image/x-icon'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c42034',
+                        secondary: '#3a1d18',
+                        white: '#ffffff'
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: "Kanit", sans-serif;
+        }
+
+        body {
+
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-12 h-12 overflow-hidden animate-float">
+                    <img src="/src/icons/logo.png" alt="YabanHayat Logo" class="object-cover w-full h-full">
+                </div>
+                <h1 class="text-primary text-2xl font-bold">YabanHayat</h1>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-secondary p-2">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#anasayfa" class="text-secondary hover:text-primary font-medium transition-all">Ana Sayfa</a>
+                <a href="#oynanıs" class="text-secondary hover:text-primary font-medium transition-all">Oynanış</a>
+                <a href="#ozellikler" class="text-secondary hover:text-primary font-medium transition-all">Özellikler</a>
+                <a href="#galerisi" class="text-secondary hover:text-primary font-medium transition-all">Galeri</a>
+                <a href="#yorumlar" class="text-secondary hover:text-primary font-medium transition-all">Yorumlar</a>
+                <a href="#indir" class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-all">Hemen İndir</a>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white w-full py-4 shadow-md">
+            <div class="container mx-auto px-4 flex flex-col gap-4">
+                <a href="#anasayfa" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Ana Sayfa</a>
+                <a href="#oynanıs" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Oynanış</a>
+                <a href="#ozellikler" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Özellikler</a>
+                <a href="#galerisi" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Galeri</a>
+                <a href="#yorumlar" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Yorumlar</a>
+                <a href="#indir" class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-all w-fit mt-2">Hemen İndir</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="anasayfa" class="pt-28 pb-16 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2 space-y-6">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary">
+                        Doğanın Büyüsünü <span class="text-primary">Keşfedin</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                        Günlük hayatın stresinden kaçın ve YabanHayat ile doğanın huzurunun tadını çıkarın. Türkiye'nin en sürükleyici ekosistemine dayalı simülasyon oyununda yüzlerce türü toplayın ve yükseltin.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#indir" class="bg-primary text-white px-8 py-3 rounded-full font-bold text-lg hover:shadow-lg transition-all flex items-center gap-2">
+                            <i class="fas fa-download"></i> Hemen İndir
+                        </a>
+                        <a href="#oynanıs" class="bg-white text-primary border-2 border-primary px-8 py-3 rounded-full font-bold text-lg hover:bg-primary hover:text-white transition-all flex items-center gap-2">
+                            <i class="fas fa-play"></i> Nasıl Oynanır
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-4 pt-4">
+                        <div class="flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                        </div>
+                        <p class="text-gray-600">2.750+ Yorum | 100.000+ İndirme</p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="relative w-full h-[500px] animate-float">
+                        <img src="/src/img/first-side.png" alt="Wildlife Incremental" class="w-full h-full object-contain rounded-xl shadow-2xl">
+                        <div class="absolute -top-4 -right-4 bg-primary text-white rounded-full p-4 shadow-lg animate-pulse-slow">
+                            <p class="font-bold text-xl">4.2</p>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 p-4 bg-white rounded-xl shadow-lg w-48 animate-pulse-slow">
+                        <p class="text-secondary font-bold">+7 Yaş</p>
+                        <p class="text-gray-600 text-sm">Herkes için uygun</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="ozellikler" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Oyunun <span class="text-primary">Özellikleri</span></h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">YabanHayat, biyoloji ve coğrafya ile eğlenceyi birleştiren benzersiz bir mobil oyun deneyimi sunar.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-primary">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+                        <i class="fas fa-leaf text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Biyolojik Doğruluk</h3>
+                    <p class="text-gray-600">Profesyonel biyologlar tarafından doğrulanmış gerçekçi tür bilgileri ve taksonomiler ile eğlenerek öğrenin.</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-primary">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+                        <i class="fas fa-map-marked-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Çeşitli Bölgeler</h3>
+                    <p class="text-gray-600">Farklı coğrafi bölgelerde yüzlerce türü keşfedin ve koleksiyonunuzu genişletin.</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-primary">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+                        <i class="fas fa-music text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Sürükleyici Müzik</h3>
+                    <p class="text-gray-600">Her bölgeye özgü dinlendirici ve rahatlatıcı fon müzikleri ile doğanın seslerini yaşayın.</p>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-primary">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+                        <i class="fas fa-arrows-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Yükseltme Sistemi</h3>
+                    <p class="text-gray-600">Tür kartlarınızı toplayın ve seviyelerini yükselterek daha fazla içerik açın.</p>
+                </div>
+
+                <!-- Feature Card 5 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-primary">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+                        <i class="fas fa-trophy text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Ödüller ve Hazineler</h3>
+                    <p class="text-gray-600">Damlalar, mücevherler ve hazineler gibi çeşitli ödüller kazanın ve koleksiyonunuzu zenginleştirin.</p>
+                </div>
+
+                <!-- Feature Card 6 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-primary">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+                        <i class="fas fa-calendar-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-3">Haftalık Etkinlikler</h3>
+                    <p class="text-gray-600">Afrika bölgesinde düzenlenen heyecan verici haftalık etkinliklere katılın ve özel ödüller kazanın.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gameplay Section -->
+    <section id="oynanıs" class="py-16 bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Nasıl <span class="underline decoration-white">Oynanır</span></h2>
+                <p class="text-white/80 text-lg max-w-3xl mx-auto">YabanHayat'ın büyüleyici dünyasına adım atın ve ekosistemleri nasıl inşa edeceğinizi öğrenin.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-2 transition-all">
+                    <div class="rounded-full w-12 h-12 bg-primary flex items-center justify-center text-white font-bold text-xl mb-4">1</div>
+                    <h3 class="text-xl font-bold text-secondary mb-2">Bölge Seçin</h3>
+                    <p class="text-gray-600">Farklı coğrafi bölgeler arasından keşfetmek istediğiniz ekosistemleri seçin.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-2 transition-all">
+                    <div class="rounded-full w-12 h-12 bg-primary flex items-center justify-center text-white font-bold text-xl mb-4">2</div>
+                    <h3 class="text-xl font-bold text-secondary mb-2">Türleri Keşfedin</h3>
+                    <p class="text-gray-600">Bölgelerde gezinerek farklı hayvan, bitki ve böcek türlerini keşfedin.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-2 transition-all">
+                    <div class="rounded-full w-12 h-12 bg-primary flex items-center justify-center text-white font-bold text-xl mb-4">3</div>
+                    <h3 class="text-xl font-bold text-secondary mb-2">Kartları Toplayın</h3>
+                    <p class="text-gray-600">Keşfettiğiniz türlerin kartlarını toplayın ve koleksiyonunuzu genişletin.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-2 transition-all">
+                    <div class="rounded-full w-12 h-12 bg-primary flex items-center justify-center text-white font-bold text-xl mb-4">4</div>
+                    <h3 class="text-xl font-bold text-secondary mb-2">Seviye Atlayın</h3>
+                    <p class="text-gray-600">Kartlarınızı yükselterek yeni türlerin kilidini açın ve daha fazla ödül kazanın.</p>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <a href="https://youtu.be/_UFUZd_GzaI" target="_blank">
+                    <div class="relative w-full max-w-4xl mx-auto overflow-hidden rounded-xl shadow-2xl">
+                        <div class="aspect-w-16 aspect-h-9 w-full h-[400px]">
+                            <img src="/src/img/trailer.png" alt="Oynanış Video" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                <button class="bg-white/20 backdrop-blur-sm text-white rounded-full w-20 h-20 flex items-center justify-center hover:bg-white/30 transition-all">
+                                    <i class="fas fa-play text-3xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galerisi" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Oyun <span class="text-primary">Galerisi</span></h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">YabanHayat'ın büyüleyici doğal ortamlarına ve çeşitli türlerine bir göz atın.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="/src/img/gallery1.png" alt="Oyun Görüntüsü 1" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/70 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-4">
+                        <p class="text-white font-medium">Afrika Savanası Bölgesi</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="/src/img/gallery2.png" alt="Oyun Görüntüsü 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/70 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-4">
+                        <p class="text-white font-medium">Yağmur Ormanları</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="/src/img/gallery3.png" alt="Oyun Görüntüsü 3" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/70 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-4">
+                        <p class="text-white font-medium">Çöl Ekosistemi</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="/src/img/gallery4.png" alt="Oyun Görüntüsü 4" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/70 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-4">
+                        <p class="text-white font-medium">Tür Koleksiyonu</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="/src/img/gallery5.png" alt="Oyun Görüntüsü 5" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/70 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-4">
+                        <p class="text-white font-medium">Kart Yükseltme Sistemi</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-xl shadow-lg">
+                    <img src="/src/img/gallery6.png" alt="Oyun Görüntüsü 6" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/70 to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-4">
+                        <p class="text-white font-medium">Haftalık Etkinlikler</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="yorumlar" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Oyuncu <span class="text-primary">Yorumları</span></h2>
+                <div class="flex items-center justify-center gap-1 mb-3">
+                    <i class="fas fa-star text-yellow-400 text-2xl"></i>
+                    <i class="fas fa-star text-yellow-400 text-2xl"></i>
+                    <i class="fas fa-star text-yellow-400 text-2xl"></i>
+                    <i class="fas fa-star text-yellow-400 text-2xl"></i>
+                    <i class="fas fa-star-half-alt text-yellow-400 text-2xl"></i>
+                    <span class="ml-2 text-xl font-bold text-secondary">4.2/5</span>
+                </div>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">2.750+ memnun oyuncunun görüşlerini okuyun ve YabanHayat deneyimini keşfedin.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                            <span class="text-primary font-bold">AY</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-secondary">Ayşe Y.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Hem eğlenceli hem de eğitici bir oyun. Biyoloji bilgimi artırırken aynı zamanda rahatlayabiliyorum. Çocuğumla birlikte oynuyoruz ve ikimiz de çok seviyoruz!"
+                    </p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                            <span class="text-primary font-bold">MK</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-secondary">Mehmet K.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "İş stresinden sonra rahatlamak için mükemmel bir oyun. Grafikleri çok güzel ve türler hakkındaki bilgiler gerçekten ilginç. Daha fazla bölge eklenmesini bekliyorum."
+                    </p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                            <span class="text-primary font-bold">SÖ</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-secondary">Serra Ö.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Doğa tutkunu biri olarak bu oyunu çok sevdim. Türlerin biyolojik olarak doğru tanımlanması ve gerçekçi görseller çok etkileyici. Kesinlikle tavsiye ederim!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="indir" class="py-16 bg-gradient-to-b from-white to-primary/10">
+        <div class="container mx-auto px-4">
+            <div class="bg-primary rounded-2xl shadow-xl overflow-hidden">
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Doğanın Büyüleyici Dünyasına Hemen Katılın!</h2>
+                        <p class="text-white/90 text-lg mb-8">
+                            YabanHayat'ı hemen indirin ve yüzlerce tür hayvan, bitki ve böcek ile dolu ekosistemi keşfetmeye başlayın. Tamamen ücretsiz!
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://play.google.com/store/apps/details?id=com.capplay.gkgame&pcampaignid=web_share" target="_blank" class="bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-opacity-90 transition-all flex items-center gap-2 shadow-lg">
+                                <i class="fab fa-google-play text-2xl"></i>
+                                <div>
+                                    <p class="text-xs">GOOGLE PLAY'DEN</p>
+                                    <p class="text-base font-bold">İNDİR</p>
+                                </div>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/wildlife-incremental-nature/id1529419971" target="_blank" class="bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-opacity-90 transition-all flex items-center gap-2 shadow-lg">
+                                <i class="fab fa-apple text-2xl"></i>
+                                <div>
+                                    <p class="text-xs">APP STORE'DAN</p>
+                                    <p class="text-base font-bold">İNDİR</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mt-8 flex gap-4">
+                            <a href="https://discord.gg/vNAB9eFs5W" class="text-white hover:text-white/80 transition-all" target="_blank">
+                                <i class="fab fa-discord text-2xl"></i>
+                            </a>
+                            <a href="https://www.facebook.com/capplaygames/" class="text-white hover:text-white/80 transition-all" target="_blank">
+                                <i class="fab fa-facebook text-2xl"></i>
+                            </a>
+                            <a href="https://twitter.com/CapPlayGames" class="text-white hover:text-white/80 transition-all" target="_blank">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <a href="https://www.instagram.com/capplaygames/" class="text-white hover:text-white/80 transition-all" target="_blank">
+                                <i class="fab fa-instagram text-2xl"></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UC8yIj0AL1SJcqqZzq27bBPA?view_as=subscriber" class="text-white hover:text-white/80 transition-all" target="_blank">
+                                <i class="fab fa-youtube text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 relative">
+                        <div class="h-full">
+                            <img src="/src/img/download.png" alt="YabanHayat Uygulama" class="w-full h-full object-cover object-center">
+                            <div class="absolute bottom-6 right-6 bg-white/20 backdrop-blur-md p-4 rounded-xl text-white">
+                                <p class="font-bold">7+ Yaş</p>
+                                <p class="text-sm">Tüm yaş grupları için uygun</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Category 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                        <i class="fas fa-gamepad text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-secondary mb-2">Simülasyon</h3>
+                    <p class="text-gray-600">Gerçekçi ekosistem simülasyonu ile doğal yaşamı deneyimleyin.</p>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                        <i class="fas fa-mouse-pointer text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-secondary mb-2">Tıklama Oyunu</h3>
+                    <p class="text-gray-600">Basit tıklama mekanikleri ile rahatlatıcı bir oyun deneyimi.</p>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-secondary mb-2">Gündelik</h3>
+                    <p class="text-gray-600">Herkesin kolayca oynayabileceği casual oyun deneyimi.</p>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                        <i class="fas fa-wifi-slash text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-secondary mb-2">Çevrimdışı</h3>
+                    <p class="text-gray-600">İnternet bağlantısı olmadan da oynayabileceğiniz tam bir oyun deneyimi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Topluluğumuza <span class="text-primary">Katılın</span></h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+                    Binlerce oyuncu ile birlikte YabanHayat deneyiminizi paylaşın, ipuçları alın ve özel etkinliklere katılın.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Discord -->
+                <div class="bg-[#5865F2] p-6 rounded-xl shadow-lg text-white">
+                    <div class="flex items-center gap-4 mb-4">
+                        <i class="fab fa-discord text-4xl"></i>
+                        <h3 class="text-2xl font-bold">Discord</h3>
+                    </div>
+                    <p class="mb-6">Discord sunucumuza katılın, diğer oyuncularla sohbet edin ve özel etkinliklere katılın.</p>
+                    <a href="https://discord.gg/vNAB9eFs5W" target="_blank" class="inline-block bg-white text-[#5865F2] px-6 py-2 rounded-full font-bold hover:bg-opacity-90 transition-all">Şimdi Katıl</a>
+                </div>
+
+                <!-- Facebook -->
+                <div class="bg-[#1877F2] p-6 rounded-xl shadow-lg text-white">
+                    <div class="flex items-center gap-4 mb-4">
+                        <i class="fab fa-facebook text-4xl"></i>
+                        <h3 class="text-2xl font-bold">Facebook</h3>
+                    </div>
+                    <p class="mb-6">Facebook sayfamızı takip edin ve en son güncellemeler, ipuçları ve haberlerden haberdar olun.</p>
+                    <a href="https://www.facebook.com/capplaygames" target="_blank" class="inline-block bg-white text-[#1877F2] px-6 py-2 rounded-full font-bold hover:bg-opacity-90 transition-all">Takip Et</a>
+                </div>
+
+                <!-- Instagram -->
+                <div class="bg-gradient-to-r from-[#405DE6] via-[#E1306C] to-[#FFDC80] p-6 rounded-xl shadow-lg text-white">
+                    <div class="flex items-center gap-4 mb-4">
+                        <i class="fab fa-instagram text-4xl"></i>
+                        <h3 class="text-2xl font-bold">Instagram</h3>
+                    </div>
+                    <p class="mb-6">Instagram hesabımızı takip edin ve oyunun en güzel anlarını, ipuçlarını ve güncellemeleri kaçırmayın.</p>
+                    <a href="https://www.instagram.com/capplaygames/" target="_blank" class="inline-block bg-white text-[#E1306C] px-6 py-2 rounded-full font-bold hover:bg-opacity-90 transition-all">Takip Et</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <a href="/" class="flex items-center gap-3 mb-4 md:mb-0">
+                    <div class="w-10 h-10 overflow-hidden">
+                        <img src="/src/icons/logo.png" alt="YabanHayat Logo" class="object-cover w-full h-full">
+                    </div>
+                    <h2 class="text-xl font-bold">YabanHayat</h2>
+                </a>
+
+                <div class="flex gap-6">
+                    <a href="https://discord.gg/vNAB9eFs5W" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/capplaygames" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/CapPlayGames" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/capplaygames/" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UC8yIj0AL1SJcqqZzq27bBPA" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 pt-6 pb-4">
+                <div class="flex flex-wrap justify-center gap-8 mb-6">
+                    <a href="/gizlilik-politikasi" class="hover:text-primary transition-all">Gizlilik Politikası</a>
+                    <a href="/kullanim-kosullari" class="hover:text-primary transition-all">Kullanım Koşulları</a>
+                    <a href="/cerezler" class="hover:text-primary transition-all">Çerez Politikası</a>
+
+                </div>
+
+                <p class="text-center text-white/60 text-sm">
+                    &copy; 2025 YabanHayat. Tüm hakları saklıdır.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Hide mobile menu when clicking a link
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+<?php
+$cookieConsentHtml = '
+<style>
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 101;
+    background: #3a1d18; 
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-top: 3px solid #c42034;
+}
+
+.cookie-container {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.cookie-title {
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-right: 1.5rem;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.cookie-title i {
+    color: #c42034;
+    font-size: 1.25rem;
+}
+
+.cookie-text {
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.cookie-link {
+    color: #c42034;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cookie-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #c42034;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.cookie-link:hover::after {
+    transform: scaleX(1);
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.cookie-button-reject,
+.cookie-button-accept {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 25px;
+}
+
+.cookie-button-reject {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.cookie-button-reject:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.cookie-button-accept {
+    background: #c42034;
+    color: #ffffff;
+    border: 2px solid #c42034;
+}
+
+.cookie-button-accept:hover {
+    background: #ffffff;
+    color: #c42034;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+    .cookie-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .cookie-content {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .cookie-title {
+        margin-bottom: 0.5rem;
+    }
+
+    .cookie-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .cookie-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .cookie-button-reject,
+    .cookie-button-accept {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+<div id="cookieConsent" class="cookie-consent">
+    <div class="cookie-container">
+        <div class="cookie-content">
+            <h3 class="cookie-title">
+                <i class="fas fa-cookie-bite"></i>
+                Çerez Politikası
+            </h3>
+            <p class="cookie-text">
+                YabanHayat oyun deneyiminizi geliştirmek için çerezler kullanıyoruz. Web sitemizi kullanmaya devam ederek çerezlerin kullanımını kabul etmiş olursunuz. Daha fazla bilgi için
+                <a href="/Gizlilik826/" class="cookie-link">Gizlilik Politikamızı</a>,
+                <a href="/Kullanım346/" class="cookie-link">Hizmet Şartlarımızı</a>
+                ve
+                <a href="/cerez23/" class="cookie-link">Çerez Politikamızı</a>
+                okuyabilirsiniz.
+            </p>
+        </div>
+        
+        <div class="cookie-buttons">
+            <button id="rejectCookies" class="cookie-button-reject">
+                Reddet
+            </button>
+            <button id="acceptCookies" class="cookie-button-accept">
+                Kabul Et
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+   const cookieConsent = document.getElementById("cookieConsent");
+   const acceptBtn = document.getElementById("acceptCookies");
+   const rejectBtn = document.getElementById("rejectCookies");
+   
+   if (!getCookie("aprenderd_cookie_consent")) {
+       setTimeout(() => {
+           cookieConsent.style.transform = "translateX(0)";
+       }, 1000);
+   }
+
+   function getCookie(name) {
+       let matches = document.cookie.match(new RegExp(
+           "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"
+       ));
+       return matches ? decodeURIComponent(matches[1]) : undefined;
+   }
+   
+   function setCookie(name, value, days) {
+       const date = new Date();
+       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+       const expires = "; expires=" + date.toUTCString();
+       document.cookie = name + "=" + value + expires + "; path=/; SameSite=Strict; Secure";
+   }
+
+   function handleConsent(consent) {
+       setCookie("aprenderd_cookie_consent", consent, 365);
+       cookieConsent.style.transform = "translateX(120%)";
+       
+       setTimeout(() => {
+           cookieConsent.remove();
+       }, 500);
+   }
+
+   acceptBtn.addEventListener("click", () => handleConsent("accepted"));
+   rejectBtn.addEventListener("click", () => handleConsent("rejected"));
+});
+</script>
+';
+
+if (!isset($_COOKIE["aprenderd_cookie_consent"])) {
+    echo $cookieConsentHtml;
+}
+?>

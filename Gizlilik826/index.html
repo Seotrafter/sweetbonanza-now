@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YabanHayat - Wildlife Incremental Mobil Oyunu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel='icon' href='/src/icons/logo.png' type='image/x-icon'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c42034',
+                        secondary: '#3a1d18',
+                        white: '#ffffff'
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: "Kanit", sans-serif;
+        }
+
+        body {
+
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-12 h-12 overflow-hidden animate-float">
+                    <img src="/src/icons/logo.png" alt="YabanHayat Logo" class="object-cover w-full h-full">
+                </div>
+                <h1 class="text-primary text-2xl font-bold">YabanHayat</h1>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-secondary p-2">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="/#anasayfa" class="text-secondary hover:text-primary font-medium transition-all">Ana Sayfa</a>
+                <a href="/#oynanıs" class="text-secondary hover:text-primary font-medium transition-all">Oynanış</a>
+                <a href="/#ozellikler" class="text-secondary hover:text-primary font-medium transition-all">Özellikler</a>
+                <a href="/#galerisi" class="text-secondary hover:text-primary font-medium transition-all">Galeri</a>
+                <a href="/#yorumlar" class="text-secondary hover:text-primary font-medium transition-all">Yorumlar</a>
+                <a href="/#indir" class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-all">Hemen İndir</a>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white w-full py-4 shadow-md">
+            <div class="container mx-auto px-4 flex flex-col gap-4">
+                <a href="/#anasayfa" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Ana Sayfa</a>
+                <a href="/#oynanıs" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Oynanış</a>
+                <a href="/#ozellikler" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Özellikler</a>
+                <a href="/#galerisi" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Galeri</a>
+                <a href="/#yorumlar" class="text-secondary hover:text-primary font-medium transition-all py-2 border-b border-gray-100">Yorumlar</a>
+                <a href="/#indir" class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-all w-fit mt-2">Hemen İndir</a>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section -->
+    <section class="py-16 bg-white mt-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-secondary mb-4">YabanHayat <span class="text-primary">Gizlilik Politikası</span></h1>
+                <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+                    Web sitemizi ziyaret edenlerin gizliliğine önem veriyoruz.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <p class="text-gray-700 mb-4">
+                    YabanHayat olarak, <strong class="text-primary">https://sweetbonanza-now.com/</strong> adresinden erişilebilen web sitemizi ziyaret edenlerin gizliliği en önemli önceliklerimizden biridir. Bu Gizlilik Politikası belgesi, YabanHayat tarafından toplanan ve kaydedilen bilgi türlerini ve bunların nasıl kullanıldığını içermektedir.
+                </p>
+                <p class="text-gray-700">
+                    Ek sorularınız varsa veya gizlilik politikamız hakkında daha fazla bilgiye ihtiyacınız olursa, bizimle iletişime geçmekten çekinmeyin.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Log Files Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Günlük Dosyaları</h2>
+                <p class="text-gray-700 mb-4">
+                    YabanHayat, günlük dosyalarını kullanma konusunda standart bir prosedür izler. Bu dosyalar, ziyaretçiler web sitelerini ziyaret ettiğinde ziyaretçileri kaydeder. Tüm barındırma (hosting) şirketleri bunu yapar ve barındırma hizmetlerinin analizlerinin bir parçasıdır.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    Günlük dosyaları tarafından toplanan bilgiler; IP adresleri, tarayıcı türü, internet servis sağlayıcısı (ISP), tarih ve saat damgaları, yönlendiren/çıkış sayfaları ve tıklama sayısı gibi bilgileri içerebilir. Bu bilgiler, kişisel olarak tanımlanabilir herhangi bir bilgiyle bağlantılı değildir.
+                </p>
+                <p class="text-gray-700">
+                    Bu bilgilerin toplanma amacı; eğilimleri analiz etmek, siteyi yönetmek, kullanıcı hareketlerini izlemek ve demografik bilgileri toplamaktır.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- Cookies Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Çerezler ve Web İşaretçileri</h2>
+                <p class="text-gray-700 mb-4">
+                    Diğer web siteleri gibi, YabanHayat de "çerezler" kullanmaktadır. Bu çerezler, ziyaretçilerin tercihleri ve ziyaret ettikleri sayfalar gibi bilgileri saklamak için kullanılır. Bu bilgiler, kullanıcıların tarayıcı türüne ve diğer bilgilere göre web sitemizin içeriğini özelleştirerek deneyimlerini optimize etmek için kullanılır.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    Çerezler hakkında daha genel bilgiler için lütfen Çerezler Hakkında Makale sayfasını okuyun.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google DART Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Google DoubleClick DART Çerezi</h2>
+                <p class="text-gray-700 mb-4">
+                    Google, sitemizdeki üçüncü taraf satıcılardan biridir. Google ayrıca, ziyaretçilerin <strong class="text-primary">https://sweetbonanza-now.com/</strong> ve internet üzerindeki diğer siteleri ziyaretlerine dayalı reklamlar sunmak için DART çerezlerini kullanır. Ancak, ziyaretçiler Google'ın reklam ve içerik ağı gizlilik politikasını ziyaret ederek DART çerezlerinin kullanımını reddetme seçeneğine sahiptir: <a href="#" class="text-primary hover:underline">Google Reklam Teknolojileri</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Partners Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Reklam Ortaklarımız</h2>
+                <p class="text-gray-700 mb-4">
+                    Sitemizde bazı reklamverenler çerezler ve web işaretçileri kullanabilir. Reklam ortaklarımız aşağıda listelenmiştir. Her bir reklam ortağımızın, kullanıcı verileriyle ilgili kendi gizlilik politikası bulunmaktadır. Daha kolay erişim için gizlilik politikalarına bağlantılar ekledik.
+                </p>
+                <ul class="list-disc pl-6 mb-4 text-gray-700">
+                    <li class="mb-2">
+                        <strong>Google</strong> - <a href="#" class="text-primary hover:underline">Google Reklam Politikası</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Third Party Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Üçüncü Taraf Gizlilik Politikaları</h2>
+                <p class="text-gray-700 mb-4">
+                    YabanHayat'in Gizlilik Politikası, diğer reklamverenler veya web siteleri için geçerli değildir. Bu nedenle, daha ayrıntılı bilgiler için ilgili üçüncü taraf reklam sunucularının gizlilik politikalarına başvurmanızı öneririz. Bu politikalar, belirli seçeneklerden nasıl çıkış yapacağınız hakkında bilgiler içerebilir.
+                </p>
+                <p class="text-gray-700">
+                    Çerezleri devre dışı bırakmak isterseniz, bunu tarayıcı ayarları aracılığıyla yapabilirsiniz. Belirli web tarayıcılarıyla çerez yönetimi hakkında daha ayrıntılı bilgiler, tarayıcıların kendi web sitelerinde bulunabilir.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Children Privacy Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Çocukların Gizliliği</h2>
+                <p class="text-gray-700 mb-4">
+                    Çevrimiçi ortamda çocukları korumak, önceliklerimizden bir diğeridir. Ebeveynleri ve velileri, çocuklarının internet kullanımını gözlemlemeye, katılmaya ve yönlendirmeye teşvik ediyoruz.
+                </p>
+                <p class="text-gray-700">
+                    YabanHayat, 13 yaşın altındaki çocuklardan bilerek kişisel olarak tanımlanabilir herhangi bir bilgi toplamaz. Eğer çocuğunuzun bu tür bilgileri web sitemizde paylaştığını düşünüyorsanız, lütfen bizimle hemen iletişime geçin. Bu tür bilgileri kayıtlarımızdan hızlı bir şekilde kaldırmak için elimizden geleni yapacağız.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Privacy Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Çevrimiçi Gizlilik Politikası</h2>
+                <p class="text-gray-700 mb-4">
+                    Bu Gizlilik Politikası yalnızca çevrimiçi faaliyetlerimiz için geçerlidir ve YabanHayat web sitesini ziyaret edenler tarafından paylaşılan ve/veya toplanan bilgiler için geçerlidir. Bu politika, çevrimdışı veya bu web sitesi dışındaki kanallar aracılığıyla toplanan bilgiler için geçerli değildir.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consent Section -->
+    <section class="py-8 bg-white mb-12">
+        <div class="container mx-auto px-4">
+            <div class="bg-primary text-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-4">Onayınız</h2>
+                <p class="mb-0">
+                    Web sitemizi kullanarak, Gizlilik Politikamızı kabul etmiş ve Şartlar ve Koşullarımızı kabul etmiş sayılırsınız.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <a href="/" class="flex items-center gap-3 mb-4 md:mb-0">
+                    <div class="w-10 h-10 overflow-hidden">
+                        <img src="/src/icons/logo.png" alt="YabanHayat Logo" class="object-cover w-full h-full">
+                    </div>
+                    <h2 class="text-xl font-bold">YabanHayat</h2>
+                </a>
+
+                <div class="flex gap-6">
+                    <a href="https://discord.gg/vNAB9eFs5W" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/capplaygames" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/CapPlayGames" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/capplaygames/" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UC8yIj0AL1SJcqqZzq27bBPA" class="hover:text-primary transition-all" target="_blank">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 pt-6 pb-4">
+                <div class="flex flex-wrap justify-center gap-8 mb-6">
+                    <a href="/gizlilik-politikasi" class="hover:text-primary transition-all">Gizlilik Politikası</a>
+                    <a href="/kullanim-kosullari" class="hover:text-primary transition-all">Kullanım Koşulları</a>
+                    <a href="/cerezler" class="hover:text-primary transition-all">Çerez Politikası</a>
+
+                </div>
+
+                <p class="text-center text-white/60 text-sm">
+                    &copy; 2025 YabanHayat. Tüm hakları saklıdır.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Hide mobile menu when clicking a link
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+<?php
+$cookieConsentHtml = '
+<style>
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 101;
+    background: #3a1d18; 
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-top: 3px solid #c42034;
+}
+
+.cookie-container {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.cookie-title {
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-right: 1.5rem;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.cookie-title i {
+    color: #c42034;
+    font-size: 1.25rem;
+}
+
+.cookie-text {
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.cookie-link {
+    color: #c42034;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cookie-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #c42034;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.cookie-link:hover::after {
+    transform: scaleX(1);
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.cookie-button-reject,
+.cookie-button-accept {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 25px;
+}
+
+.cookie-button-reject {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.cookie-button-reject:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.cookie-button-accept {
+    background: #c42034;
+    color: #ffffff;
+    border: 2px solid #c42034;
+}
+
+.cookie-button-accept:hover {
+    background: #ffffff;
+    color: #c42034;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+    .cookie-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .cookie-content {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .cookie-title {
+        margin-bottom: 0.5rem;
+    }
+
+    .cookie-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .cookie-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .cookie-button-reject,
+    .cookie-button-accept {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+<div id="cookieConsent" class="cookie-consent">
+    <div class="cookie-container">
+        <div class="cookie-content">
+            <h3 class="cookie-title">
+                <i class="fas fa-cookie-bite"></i>
+                Çerez Politikası
+            </h3>
+            <p class="cookie-text">
+                YabanHayat oyun deneyiminizi geliştirmek için çerezler kullanıyoruz. Web sitemizi kullanmaya devam ederek çerezlerin kullanımını kabul etmiş olursunuz. Daha fazla bilgi için
+                <a href="/Gizlilik826/" class="cookie-link">Gizlilik Politikamızı</a>,
+                <a href="/Kullanım346/" class="cookie-link">Hizmet Şartlarımızı</a>
+                ve
+                <a href="/cerez23/" class="cookie-link">Çerez Politikamızı</a>
+                okuyabilirsiniz.
+            </p>
+        </div>
+        
+        <div class="cookie-buttons">
+            <button id="rejectCookies" class="cookie-button-reject">
+                Reddet
+            </button>
+            <button id="acceptCookies" class="cookie-button-accept">
+                Kabul Et
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+   const cookieConsent = document.getElementById("cookieConsent");
+   const acceptBtn = document.getElementById("acceptCookies");
+   const rejectBtn = document.getElementById("rejectCookies");
+   
+   if (!getCookie("aprenderd_cookie_consent")) {
+       setTimeout(() => {
+           cookieConsent.style.transform = "translateX(0)";
+       }, 1000);
+   }
+
+   function getCookie(name) {
+       let matches = document.cookie.match(new RegExp(
+           "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"
+       ));
+       return matches ? decodeURIComponent(matches[1]) : undefined;
+   }
+   
+   function setCookie(name, value, days) {
+       const date = new Date();
+       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+       const expires = "; expires=" + date.toUTCString();
+       document.cookie = name + "=" + value + expires + "; path=/; SameSite=Strict; Secure";
+   }
+
+   function handleConsent(consent) {
+       setCookie("aprenderd_cookie_consent", consent, 365);
+       cookieConsent.style.transform = "translateX(120%)";
+       
+       setTimeout(() => {
+           cookieConsent.remove();
+       }, 500);
+   }
+
+   acceptBtn.addEventListener("click", () => handleConsent("accepted"));
+   rejectBtn.addEventListener("click", () => handleConsent("rejected"));
+});
+</script>
+';
+
+if (!isset($_COOKIE["aprenderd_cookie_consent"])) {
+    echo $cookieConsentHtml;
+}
+?>
